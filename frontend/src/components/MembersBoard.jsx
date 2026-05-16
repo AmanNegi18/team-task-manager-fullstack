@@ -16,7 +16,7 @@ const MembersBoard = () => {
   const fetchUsers = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.get('http://localhost:5000/api/users', {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/users`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setUsers(res.data);
@@ -29,7 +29,7 @@ const MembersBoard = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem('token');
-      await axios.post('http://localhost:5000/api/users', newMember, {
+      await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/users`, newMember, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setNewMember({ name: '', email: '', password: '', role: 'MEMBER' });
@@ -45,7 +45,7 @@ const MembersBoard = () => {
     if (!window.confirm('Are you sure you want to delete this member? All their tasks and projects will be deleted.')) return;
     try {
       const token = localStorage.getItem('token');
-      await axios.delete(`http://localhost:5000/api/users/${id}`, {
+      await axios.delete(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/users/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       fetchUsers();

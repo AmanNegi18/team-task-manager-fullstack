@@ -16,7 +16,7 @@ const ProjectsBoard = () => {
   const fetchProjects = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.get('http://localhost:5000/api/projects', {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/projects`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setProjects(res.data);
@@ -29,7 +29,7 @@ const ProjectsBoard = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem('token');
-      await axios.post('http://localhost:5000/api/projects', newProject, {
+      await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/projects`, newProject, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setNewProject({ name: '', description: '' });
@@ -44,7 +44,7 @@ const ProjectsBoard = () => {
     if (!window.confirm('Are you sure you want to delete this project? This will also delete all associated tasks.')) return;
     try {
       const token = localStorage.getItem('token');
-      await axios.delete(`http://localhost:5000/api/projects/${id}`, {
+      await axios.delete(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/projects/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       fetchProjects();

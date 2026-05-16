@@ -48,7 +48,7 @@ const TasksBoard = () => {
   const fetchTasks = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.get('http://localhost:5000/api/tasks', {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/tasks`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setTasks(res.data);
@@ -60,7 +60,7 @@ const TasksBoard = () => {
   const fetchProjects = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.get('http://localhost:5000/api/projects', {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/projects`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setProjects(res.data);
@@ -72,7 +72,7 @@ const TasksBoard = () => {
   const fetchUsers = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.get('http://localhost:5000/api/users', {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/users`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setUsers(res.data);
@@ -84,7 +84,7 @@ const TasksBoard = () => {
   const fetchComments = async (taskId) => {
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.get(`http://localhost:5000/api/comments/${taskId}`, {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/comments/${taskId}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setComments(res.data);
@@ -97,7 +97,7 @@ const TasksBoard = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem('token');
-      await axios.post('http://localhost:5000/api/tasks', newTask, {
+      await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/tasks`, newTask, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setNewTask({ title: '', projectId: '', assigneeId: '', status: 'TODO', description: '', dueDate: '', priority: 'MEDIUM' });
@@ -113,7 +113,7 @@ const TasksBoard = () => {
     if (!newComment.trim()) return;
     try {
       const token = localStorage.getItem('token');
-      await axios.post('http://localhost:5000/api/comments', {
+      await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/comments`, {
         text: newComment,
         taskId: selectedTask.id
       }, {
@@ -130,7 +130,7 @@ const TasksBoard = () => {
     if (!window.confirm('Are you sure you want to delete this task?')) return;
     try {
       const token = localStorage.getItem('token');
-      await axios.delete(`http://localhost:5000/api/tasks/${id}`, {
+      await axios.delete(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/tasks/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setSelectedTask(null);
@@ -148,7 +148,7 @@ const TasksBoard = () => {
 
     try {
       const token = localStorage.getItem('token');
-      await axios.put(`http://localhost:5000/api/tasks/${id}`, { status }, {
+      await axios.put(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/tasks/${id}`, { status }, {
         headers: { Authorization: `Bearer ${token}` }
       });
       // Data is already updated optimistically, but fetchTasks will confirm it
