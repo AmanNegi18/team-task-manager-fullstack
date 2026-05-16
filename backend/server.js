@@ -1,8 +1,14 @@
+console.log('--- SERVER STARTING UP ---');
+console.log('Environment:', process.env.NODE_ENV);
+console.log('Port:', process.env.PORT);
+
 const express = require('express');
 const cors = require('cors');
 const http = require('http');
 const { Server } = require('socket.io');
 require('dotenv').config();
+
+console.log('Dependencies loaded');
 
 const authRoutes = require('./routes/auth');
 const projectRoutes = require('./routes/projects');

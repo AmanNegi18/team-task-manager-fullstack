@@ -1,3 +1,11 @@
 const { PrismaClient } = require('@prisma/client');
-const prisma = new PrismaClient();
+let prisma;
+
+try {
+  prisma = new PrismaClient();
+  console.log('Prisma Client Initialized');
+} catch (error) {
+  console.error('Prisma Initialization Error:', error);
+}
+
 module.exports = prisma;
