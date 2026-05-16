@@ -50,7 +50,10 @@ app.use((req, res, next) => {
   next();
 });
 
-// Routes
+// Serve static frontend files
+app.use(express.static('../frontend/dist'));
+
+// API routes
 app.use('/api/auth', authRoutes);
 app.use('/api/projects', projectRoutes);
 app.use('/api/tasks', taskRoutes);
@@ -58,6 +61,11 @@ app.use('/api/dashboard', dashboardRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/comments', commentRoutes);
 app.use('/api/activities', activityRoutes);
+
+// Serve index.html for all non-API routes (React Router)
+app.get('*', (req, res) => {
+  res.sendFile(__dirname + '/../frontend/dist/index.html');
+});
 
 io.on('connection', (socket) => {
   console.log('A user connected via WebSocket:', socket.id);
