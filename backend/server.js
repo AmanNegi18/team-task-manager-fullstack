@@ -19,10 +19,10 @@ const io = new Server(server, {
 });
 
 app.use(cors({
-  origin: true, // This will mirror the request origin
+  origin: '*',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true
+  credentials: false
 }));
 app.use(express.json());
 
