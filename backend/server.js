@@ -6,6 +6,16 @@ const http = require('http');
 const { Server } = require('socket.io');
 require('dotenv').config();
 
+// Ensure DATABASE_URL always has a value (Railway may not have it set)
+if (!process.env.DATABASE_URL) {
+  process.env.DATABASE_URL = 'file:./prisma/dev.db';
+  console.log('Using default DATABASE_URL: file:./prisma/dev.db');
+}
+if (!process.env.JWT_SECRET) {
+  process.env.JWT_SECRET = 'f9e8a7b6c5d4e3f2g1h0i9j8k7l6m5n4';
+}
+console.log('DATABASE_URL:', process.env.DATABASE_URL);
+
 const authRoutes = require('./routes/auth');
 const projectRoutes = require('./routes/projects');
 const taskRoutes = require('./routes/tasks');
